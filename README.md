@@ -4,7 +4,7 @@
 
 # bget
 
-[![npm version](https://badgen.net/npm/v/bget)](https://npm.im/bget)
+[![npm version](https://badgen.net/npm/v/@egoist/bget)](https://npm.im/@egoist/bget)
 
 > Download and install binaries from GitHub Releases.
 
@@ -13,13 +13,14 @@
 One-off usage:
 
 ```bash
-npx bget user/repo
+npx @egoist/bget user/repo
 ```
 
 Or install as a global package:
 
 ```bash
-npm i -g bget
+npm i -g @egoist/bget
+
 bget user/repo
 ```
 

@@ -1,5 +1,5 @@
 {
-  "name": "bget",
+  "name": "@egoist/bget",
   "version": "0.0.0-semantic-release",
   "description": "Download and install binaries from GitHub Releases",
   "publishConfig": {
