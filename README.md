@@ -34,6 +34,10 @@ bget user/repo
 bget user/repo@v1.0.0
 ```
 
+## TODO
+
+- [ ] Support compressed files: `.zip` `.tar.gz` `.tar.xz`
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/sponsors/egoist)
