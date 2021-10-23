@@ -8,6 +8,11 @@
 
 > Download and install binaries from GitHub Releases.
 
+## Preview
+
+![Preview](https://user-images.githubusercontent.com/8784712/138543987-69075344-d781-4d9a-8a51-f6c33e37ba1c.gif)
+
+
 ## Install
 
 One-off usage:
