@@ -8,7 +8,9 @@
   "files": [
     "dist"
   ],
-  "bin": "dist/cli.js",
+  "bin": {
+    "bget": "dist/cli.js"
+  },
   "scripts": {
     "build": "tsup src/cli.ts --format cjs",
     "test": "echo lol",
