@@ -2,26 +2,35 @@
 
 ---
 
-# my-ts-lib
+# bget
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib)
+[![npm version](https://badgen.net/npm/v/bget)](https://npm.im/bget)
 
-## Using this template
-
-- Search `my-ts-lib` and replace it with your custom package name.
-- Search `egoist` and replace it with your name.
-
-Features:
-
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [tsup](https://github.com/egoist/tsup)
-- Test with [jest](https://jestjs.io/)
+> Download and install binaries from GitHub Releases.
 
 ## Install
 
+One-off usage:
+
 ```bash
-npm i my-ts-lib
+npx bget user/repo
+```
+
+Or install as a global package:
+
+```bash
+npm i -g bget
+bget user/repo
+```
+
+## Usage
+
+```bash
+# From a repo's GitHub releases
+bget user/repo
+
+# Optionally a tag, default to `latest`
+bget user/repo@v1.0.0
 ```
 
 ## License

@@ -1,33 +1,28 @@
 {
-  "name": "my-ts-lib",
-  "version": "0.0.0",
-  "description": "My awesome typescript library",
+  "name": "bget",
+  "version": "0.0.0-semantic-release",
+  "description": "Download and install binaries from GitHub Releases",
   "publishConfig": {
     "access": "public"
   },
   "files": [
     "dist"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
-  },
-  "types": "./dist/index.d.ts",
+  "bin": "dist/cli.js",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts-resolve",
-    "test": "jest",
+    "build": "tsup src/cli.ts --format cjs",
+    "test": "echo lol",
     "prepublishOnly": "npm run build"
   },
   "license": "MIT",
   "devDependencies": {
     "@egoist/prettier-config": "^0.1.0",
-    "@sucrase/jest-plugin": "^2.0.0",
-    "@types/jest": "^26.0.20",
-    "jest": "^26.6.3",
+    "axios": "^0.23.0",
+    "cac": "^6.7.11",
+    "enquirer": "^2.3.6",
     "prettier": "^2.2.1",
-    "tsup": "^4.8.4",
+    "tsno": "^1.3.4",
+    "tsup": "^5.4.3",
     "typescript": "^4.2.3"
   }
 }
