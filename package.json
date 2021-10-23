@@ -13,12 +13,13 @@
   },
   "scripts": {
     "build": "tsup src/cli.ts --format cjs",
-    "test": "echo lol",
+    "test": "tsc",
     "prepublishOnly": "npm run build"
   },
   "license": "MIT",
   "devDependencies": {
     "@egoist/prettier-config": "^0.1.0",
+    "@types/node": "^16.11.4",
     "axios": "^0.23.0",
     "cac": "^6.7.11",
     "enquirer": "^2.3.6",

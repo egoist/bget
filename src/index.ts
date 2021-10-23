@@ -50,7 +50,7 @@ export async function bget(source: string) {
 
   console.log(`Downloading ${answers.downloadURL}`)
   await downloadFile(answers.downloadURL, answers.outputPath)
-  fs.promises.chmod(answers.outputPath, 0o755)
+  await fs.promises.chmod(answers.outputPath, 0o755)
   console.log(`Installed to ${answers.outputPath}`)
 }
 

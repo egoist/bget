@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@egoist/prettier-config': ^0.1.0
+  '@types/node': ^16.11.4
   axios: ^0.23.0
   cac: ^6.7.11
   enquirer: ^2.3.6
@@ -12,6 +13,7 @@ specifiers:
 
 devDependencies:
   '@egoist/prettier-config': 0.1.0
+  '@types/node': 16.11.4
   axios: 0.23.0
   cac: 6.7.11
   enquirer: 2.3.6
@@ -63,6 +65,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.4
       fastq: 1.11.0
+    dev: true
+
+  /@types/node/16.11.4:
+    resolution: {integrity: sha512-TMgXmy0v2xWyuCSCJM6NCna2snndD8yvQF67J29ipdzMcsPa9u+o0tjF5+EQNdhcuZplYuouYqpc4zcd5I6amQ==}
     dev: true
 
   /@types/parse-json/4.0.0:
