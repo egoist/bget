@@ -2,6 +2,10 @@
 
 > Download and install binary files from GitHub Releases.
 
+## Preview
+
+![preview](https://sm.ms/image/6lBngDsy4WOo8Rw)
+
 ## Install
 
 For Mac users, you can use Homebrew to install it:
