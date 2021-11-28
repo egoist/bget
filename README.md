@@ -17,7 +17,11 @@ brew install egoist/tap/bget
 For others:
 
 ```bash
-curl -fsSL https://install.egoist.sh/bget.sh | bash -s -- -b /usr/local/bin
+# Install to the same directory where bash is
+# Feel free to change the -b flag
+# Also works for Termux
+curl -fsSL https://install.egoist.sh/bget.sh | bash \
+    -s -- -b $(dirname $(which bash))
 ```
 
 Or just grab the latest release from [GitHub Releases](https://github.com/egoist/bget/releases).
