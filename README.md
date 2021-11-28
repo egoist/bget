@@ -4,7 +4,7 @@
 
 ## Preview
 
-![preview](https://sm.ms/image/6lBngDsy4WOo8Rw)
+![CleanShot 2021-11-29 at 00 54 42](https://user-images.githubusercontent.com/8784712/143778020-25b8de62-5b90-4097-8f11-d8ef2db172db.gif)
 
 ## Install
 
