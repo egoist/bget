@@ -31,11 +31,11 @@ func handle(args *AppArgs) error {
 
 	stopSpinner := bget.ShowSpinnerWhile("Fetching releases")
 	release, err := gh.FetchRelease()
-	if err != nil {
-		stopSpinner()
+        stopSpinner()	
+        if err != nil {
 		return err
 	}
-	stopSpinner()
+
 
 	var assetsForPrompt []string
 	assets := make(map[string]bget.GithubReleaseAsset)
@@ -70,11 +70,10 @@ func handle(args *AppArgs) error {
 
 	stopSpinner = bget.ShowSpinnerWhile("Downloading " + assetName)
 	tempFile, err := bget.DownloadFileToTemp(asset.DwnloadURL)
-	if err != nil {
-		stopSpinner()
+        stopSpinner()	
+        if err != nil {
 		return err
 	}
-	stopSpinner()
 
 	binFile := ""
 
