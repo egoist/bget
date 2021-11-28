@@ -109,6 +109,21 @@ func handle(args *AppArgs) error {
 
 func InstallBin(src string, binName string, binDir string) error {
 	dest := filepath.Join(binDir, binName)
+
+	if bget.PathExists(dest) {
+		overwrite := false
+		err := survey.AskOne(&survey.Confirm{
+			Message: "Bin already exists. Overwrite?",
+		}, &overwrite)
+		if err != nil {
+			return err
+		}
+		if !overwrite {
+			return fmt.Errorf("aborted")
+		}
+	}
+
+	os.MkdirAll(binDir, 0755)
 	err := os.Rename(src, dest)
 	if err != nil {
 		return err
