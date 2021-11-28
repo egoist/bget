@@ -1,0 +1,4 @@
+node_modules
+/bget
+.DS_Store
+*.log
