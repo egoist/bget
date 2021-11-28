@@ -19,7 +19,6 @@ For others:
 ```bash
 # Install to the same directory where bash is
 # Feel free to change the -b flag
-# Also works for Termux
 curl -fsSL https://install.egoist.sh/bget.sh | bash \
     -s -- -b $(dirname $(which bash))
 ```
