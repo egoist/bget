@@ -65,10 +65,10 @@ func printHelp() {
 bget v%s	
 
 Flags:
-	-b, --bin <name>	 The name of the binary file to output (default: repo name)
-	-d, --dir <dir>	 	 The directory to install the binary to (default: /usr/local/bin)
-	-v, --version		 Print version
-	-h, --help		     Print help
+	-b, --bin <name>     The name of the binary file to output (default: repo name)
+	-d, --dir <dir>      The directory to install the binary to (default: /usr/local/bin)
+	-v, --version        Print version
+	-h, --help           Print help
 
 `, VERSION)
 }
