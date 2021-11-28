@@ -34,6 +34,8 @@ bget owner/repo#v1.2.3
 - `bin_name` defaults to the name of the GitHub repo.
 - `install_dir` defaults to `/usr/local/bin`.
 
+It will look for executable files (as well as compressed files) in the release assets, if it's a compressed file we simply use the largest file inside it.
+
 ## Example
 
 ```bash
