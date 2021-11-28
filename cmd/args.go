@@ -54,7 +54,7 @@ func ParseArgs(args []string) (*AppArgs, error) {
 	return &appArgs, nil
 }
 
-const VERSION string = "1.0.4"
+const VERSION string = "1.0.5"
 
 func printVersion() {
 	println(VERSION)
