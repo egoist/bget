@@ -47,6 +47,10 @@ func handle(args *AppArgs) error {
 		assets[asset.Name] = asset
 	}
 
+	if len(assetsForPrompt) == 0 {
+		return fmt.Errorf("no releases in this repo")
+	}
+
 	assetName := ""
 
 	err = survey.AskOne(&survey.Select{

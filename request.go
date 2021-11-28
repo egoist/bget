@@ -1,6 +1,7 @@
 package bget
 
 import (
+	"errors"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +14,10 @@ func Request(url string) ([]byte, error) {
 		return nil, err
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode < 200 || res.StatusCode >= 300 {
+		return nil, errors.New("request failed: " + res.Status)
+	}
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {

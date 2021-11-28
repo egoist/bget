@@ -46,6 +46,11 @@ func ParseArgs(args []string) (*AppArgs, error) {
 		}
 	}
 
+	if appArgs.Repo == "" {
+		printHelp()
+		os.Exit(0)
+	}
+
 	return &appArgs, nil
 }
 
