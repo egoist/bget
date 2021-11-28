@@ -8,7 +8,7 @@
 
 ## Install
 
-For Mac users, you can use Homebrew to install it:
+For Mac/Linux users, you can use Homebrew to install it:
 
 ```bash
 brew install egoist/tap/bget
