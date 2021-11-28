@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 )
 
 // Extract extracts the file to a temporary directory
@@ -19,19 +20,32 @@ func Extract(file string) (string, error) {
 	// extract
 	ext := filepath.Ext(file)
 	if ext == ".zip" {
-		out, err := exec.Command("unzip", "-d", tempDir, file).CombinedOutput()
-
+		bytes, err := exec.Command(wrapCommand("unzip"), "-d", tempDir, file).CombinedOutput()
 		if err != nil {
-			return "", errors.New(string(out))
+			output := string(bytes)
+			if output != "" {
+				return "", errors.New(output)
+			}
+			return "", err
 		}
 	} else {
-		out, err := exec.Command("tar", "-xvzf", file, "-C", tempDir).CombinedOutput()
-
+		bytes, err := exec.Command(wrapCommand("tar"), "-xvzf", file, "-C", tempDir).CombinedOutput()
 		if err != nil {
-			return "", errors.New(string(out))
+			output := string(bytes)
+			if output != "" {
+				return "", errors.New(output)
+			}
+			return "", err
 		}
 	}
 
 	// println("extracted to", tempDir)
 	return tempDir, nil
+}
+
+func wrapCommand(command string) string {
+	if runtime.GOOS == "windows" {
+		return command + ".exe"
+	}
+	return command
 }
