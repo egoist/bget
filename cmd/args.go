@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -64,7 +65,7 @@ func ParseArgs(args []string) (*AppArgs, error) {
 const VERSION string = "1.0.7"
 
 func printVersion() {
-	println(VERSION)
+	println("v" + VERSION + "/" + runtime.GOOS + "-" + runtime.GOARCH)
 }
 
 func printHelp() {
