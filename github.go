@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"runtime"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
@@ -151,14 +149,10 @@ func InstallBin(src string, binName string, binDir string) error {
 
 	// Try to move it
 	err := os.Rename(src, dest)
-	// Check if it's permission error
-	// IDK how to handle windows yet
-	if runtime.GOOS != "windows" && os.IsPermission(err) {
-		err = exec.Command("sh", "-c", "sudo mv "+src+" "+dest).Run()
-		if err != nil {
-			return err
-		}
-	} else if err != nil {
+
+	// TODO: handle permission error
+	// Sometimes you need sudo access to the binDir
+	if err != nil {
 		return err
 	}
 
