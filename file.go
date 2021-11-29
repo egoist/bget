@@ -1,6 +1,7 @@
 package bget
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -70,4 +71,14 @@ func PathExists(path string) bool {
 		return false
 	}
 	return true
+}
+
+func HumanSize(size int64) string {
+	if size < 1024 {
+		return fmt.Sprintf("%d Bytes", size)
+	} else if size < 1024*1024 {
+		return fmt.Sprintf("%d KB", size/1024)
+	} else {
+		return fmt.Sprintf("%.2f MB", float64(size)/1024/1024)
+	}
 }

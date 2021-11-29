@@ -31,53 +31,52 @@ func handle(args *AppArgs) error {
 
 	stopSpinner := bget.ShowSpinnerWhile("Fetching releases")
 	release, err := gh.FetchRelease()
-        stopSpinner()	
-        if err != nil {
+	stopSpinner()
+	if err != nil {
 		return err
 	}
 
-
 	var assetsForPrompt []string
-	assets := make(map[string]bget.GithubReleaseAsset)
-	for _, asset := range release.Assets {
+	assets := make(map[int]bget.GithubReleaseAsset)
+	for index, asset := range release.Assets {
 		if !bget.IsQualifiedAsset(asset.Name) {
 			continue
 		}
-		assetsForPrompt = append(assetsForPrompt, asset.Name)
-		assets[asset.Name] = asset
+		assetsForPrompt = append(assetsForPrompt, asset.Name+" ("+bget.HumanSize(asset.Size)+")")
+		assets[index] = asset
 	}
 
 	if len(assetsForPrompt) == 0 {
 		return fmt.Errorf("no releases in this repo")
 	}
 
-	assetName := ""
+	var assetIndex int
 
 	err = survey.AskOne(&survey.Select{
 		Message: "Select an asset",
 		Options: assetsForPrompt,
-	}, &assetName)
+	}, &assetIndex)
 
 	if err != nil {
 		return err
 	}
 
-	if assetName == "" {
-		return fmt.Errorf("no asset selected")
+	if assetIndex < 0 || assetIndex >= len(assets) {
+		return fmt.Errorf("invalid asset index")
 	}
 
-	asset := assets[assetName]
+	asset := assets[assetIndex]
 
-	stopSpinner = bget.ShowSpinnerWhile("Downloading " + assetName)
+	stopSpinner = bget.ShowSpinnerWhile("Downloading " + asset.Name)
 	tempFile, err := bget.DownloadFileToTemp(asset.DwnloadURL)
-        stopSpinner()	
-        if err != nil {
+	stopSpinner()
+	if err != nil {
 		return err
 	}
 
 	binFile := ""
 
-	if bget.IsCompressedFile(assetName) {
+	if bget.IsCompressedFile(asset.Name) {
 		tempDir, err := bget.Extract(tempFile)
 		if err != nil {
 			return err
