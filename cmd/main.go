@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/egoist/bget"
@@ -25,9 +24,7 @@ func main() {
 }
 
 func handle(args *AppArgs) error {
-	gh := bget.GitHub{}
-
-	gh.ParseRepo(args.Repo)
+	gh := bget.NewGitHub(args.Repo, args.GitHubToken)
 
 	stopSpinner := bget.ShowSpinnerWhile("Fetching releases")
 	release, err := gh.FetchRelease()
@@ -67,98 +64,9 @@ func handle(args *AppArgs) error {
 
 	asset := assets[assetIndex]
 
-	stopSpinner = bget.ShowSpinnerWhile("Downloading " + asset.Name)
-	tempFile, err := bget.DownloadFileToTemp(asset.DwnloadURL)
-	stopSpinner()
-	if err != nil {
-		return err
-	}
-
-	binFile := ""
-
-	if bget.IsCompressedFile(asset.Name) {
-		tempDir, err := bget.Extract(tempFile)
-		if err != nil {
-			return err
-		}
-		binFile, err = GetBinFromDir(tempDir)
-		if err != nil {
-			return err
-		}
-
-	} else {
-		binFile = tempFile
-	}
-
-	binDir := "/usr/local/bin"
-	binName := gh.Repo
-	if args.BinDir != "" {
-		binDir = args.BinDir
-	}
-	if args.BinName != "" {
-		binName = args.BinName
-	}
-	err = InstallBin(binFile, binName, binDir)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func InstallBin(src string, binName string, binDir string) error {
-	dest := filepath.Join(binDir, binName)
-
-	if bget.PathExists(dest) {
-		overwrite := false
-		err := survey.AskOne(&survey.Confirm{
-			Message: "Bin already exists. Overwrite?",
-		}, &overwrite)
-		if err != nil {
-			return err
-		}
-		if !overwrite {
-			return fmt.Errorf("aborted")
-		}
-	}
-
-	os.MkdirAll(binDir, 0755)
-	err := os.Rename(src, dest)
-	if err != nil {
-		return err
-	}
-
-	// Make dest executable
-	err = os.Chmod(dest, 0755)
-
-	println("Installed to:", dest)
-
+	err = gh.DownloadAndInstallAsset(&asset, &bget.InstallOpts{
+		BinDir:  args.BinDir,
+		BinName: args.BinName,
+	})
 	return err
-}
-
-func GetBinFromDir(dir string) (string, error) {
-	files, err := bget.ReadDir(dir)
-	if err != nil {
-		return "", err
-	}
-
-	var largest int64 = 0
-	filepath := ""
-
-	for _, file := range files {
-
-		if !bget.IsExecutable(file.Path) {
-			continue
-		}
-
-		if file.Size > largest {
-			largest = file.Size
-			filepath = file.Path
-		}
-	}
-
-	if filepath == "" {
-		return "", fmt.Errorf("no executable file found in %s", dir)
-	}
-
-	return filepath, nil
 }

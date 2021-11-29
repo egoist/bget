@@ -8,8 +8,15 @@ import (
 	"path/filepath"
 )
 
-func Request(url string) ([]byte, error) {
-	res, err := http.Get(url)
+func Request(url string, headers *map[string]string) ([]byte, error) {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	for k, v := range *headers {
+		req.Header.Add(k, v)
+	}
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -28,13 +35,24 @@ func Request(url string) ([]byte, error) {
 }
 
 // DownloadFileToTemp download url to a temporary file and returns the path to the temporary file
-func DownloadFileToTemp(url string) (string, error) {
-	// Download the file from `url` and save it to a temp file
-	res, err := http.Get(url)
+func DownloadFileToTemp(url string, headers *map[string]string) (string, error) {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", err
+	}
+	for k, v := range *headers {
+		req.Header.Add(k, v)
+	}
+	req.Header.Add("Accept", "application/octet-stream")
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", err
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode < 200 || res.StatusCode >= 300 {
+		return "", errors.New("request failed: " + res.Status)
+	}
 
 	ext := filepath.Ext(url)
 	// Create a temp file

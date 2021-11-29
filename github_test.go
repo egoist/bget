@@ -6,9 +6,7 @@ import (
 )
 
 func TestGetLatestRelease(t *testing.T) {
-	gh := GitHub{}
-
-	gh.ParseRepo("egoist/doko")
+	gh := NewGitHub("egoist/doko", "")
 
 	release, err := gh.FetchRelease()
 	if err != nil {

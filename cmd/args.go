@@ -7,9 +7,10 @@ import (
 )
 
 type AppArgs struct {
-	Repo    string
-	BinDir  string
-	BinName string
+	Repo        string
+	BinDir      string
+	BinName     string
+	GitHubToken string
 }
 
 func ParseArgs(args []string) (*AppArgs, error) {
@@ -34,6 +35,12 @@ func ParseArgs(args []string) (*AppArgs, error) {
 				return nil, fmt.Errorf("--bin requires an argument")
 			}
 			appArgs.BinName = args[index+1]
+			index++
+		} else if v == "--token" {
+			if index+1 >= len(args) {
+				return nil, fmt.Errorf("--token requires an argument")
+			}
+			appArgs.GitHubToken = args[index+1]
 			index++
 		} else if strings.HasPrefix(v, "-") {
 			return nil, fmt.Errorf("unknown option: %s", v)
@@ -65,10 +72,11 @@ func printHelp() {
 bget v%s	
 
 Flags:
-	-b, --bin <name>     The name of the binary file to output (default: repo name)
-	-d, --dir <dir>      The directory to install the binary to (default: /usr/local/bin)
-	-v, --version        Print version
-	-h, --help           Print help
+  -b, --bin <name>         The name of the binary file to output (default: repo name)
+  -d, --dir <dir>          The directory to install the binary to (default: /usr/local/bin)
+  --token <github_token>   Required if you want to download from a private repo (default: $GITHUB_TOKEN)
+  -v, --version            Print version
+  -h, --help               Print help
 
 `, VERSION)
 }
