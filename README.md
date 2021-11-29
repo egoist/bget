@@ -38,7 +38,7 @@ bget owner/repo#v1.2.3
 
 It will look for executable files (as well as compressed files) in the release assets, if it's a compressed file we simply use the largest file inside it.
 
-## Private Repo
+### Private Repo
 
 ```bash
 bget owner/repo --token GITHUB_TOKEN
