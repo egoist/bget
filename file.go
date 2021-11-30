@@ -9,11 +9,10 @@ import (
 )
 
 func IsQualifiedAsset(name string) bool {
-	ext := filepath.Ext(name)
-	if ext == "" {
-		// Might be an executable
+	if IsExecutable(name) {
 		return true
-	} else if IsCompressedFile(name) {
+	}
+	if IsCompressedFile(name) {
 		return true
 	}
 	return false
