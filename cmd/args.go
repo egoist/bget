@@ -62,7 +62,7 @@ func ParseArgs(args []string) (*AppArgs, error) {
 	return &appArgs, nil
 }
 
-const VERSION string = "1.0.7"
+const VERSION string = "1.0.8"
 
 func printVersion() {
 	println("v" + VERSION + "/" + runtime.GOOS + "-" + runtime.GOARCH)

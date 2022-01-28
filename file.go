@@ -18,16 +18,16 @@ func IsQualifiedAsset(name string) bool {
 	return false
 }
 
+// Check if file ends with any of the extensions
 func IsCompressedFile(file string) bool {
-	lastExt := filepath.Ext(file)
-	firstExt := filepath.Ext(strings.TrimSuffix(file, lastExt))
-	ext := firstExt + lastExt
-	switch ext {
-	case ".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".tar.xz", ".txz", ".zip":
-		return true
-	default:
-		return false
+	exts := []string{".tar.gz", ".tgz", ".tar.bz2", ".tbz2", ".tar.xz", ".txz", ".zip"}
+
+	for _, ext := range exts {
+		if strings.HasSuffix(file, ext) {
+			return true
+		}
 	}
+	return false
 }
 
 func IsExecutable(file string) bool {
